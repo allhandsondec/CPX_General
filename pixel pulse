@@ -1,0 +1,17 @@
+import time
+from adafruit_circuitplayground.express import cpx
+
+pixels = cpx.pixels
+pixels.brightness = .5
+
+program = ""
+
+while True:
+    for j in range(0,255,10):
+        pixels[1] = (j, 0, 0)
+        pixels.show()
+        time.sleep(.005)
+    for j in range(255,0,-10):
+        pixels[1] = (j, 0, 0)
+        pixels.show()
+        time.sleep(.005)
