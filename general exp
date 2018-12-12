@@ -1,0 +1,86 @@
+import time
+import board
+import neopixel
+from adafruit_circuitplayground.express import cpx
+
+
+RED = (255, 0, 0)
+YELLOW = (255, 150, 0)
+GREEN = (0, 255, 0)
+CYAN = (0, 255, 255)
+BLUE = (0, 0, 255)
+PURPLE = (180, 0, 255)
+BLACK = (0, 0, 0)
+
+#pixels = neopixel.NeoPixel(board.NEOPIXEL, 10, brightness=.2)
+#pixels = cpx.pixels
+pixels = neopixel.NeoPixel(board.A2, 30) 
+pixels.brightness = .5
+
+program = ""
+
+def pulse(pixel_number):
+    
+    for j in range(0,255,200):
+        for o in range(0,5,1):
+            #pixels[pixel_number] = (j, 0, 0)
+            pixels[pixel_number+o] = (j, 0, 0)
+            pixels.show()
+            #time.sleep(.01)
+    for j in range(255,0,-200):
+        for o in range(0,5,1):
+            #pixels[pixel_number] = (j, 0, 0)
+            pixels[pixel_number+o] = (j, 0, 0)
+            pixels.show()
+            #time.sleep(.01)
+    #pixels[pixel_number+1] = (0,0,0)
+    pixels[pixel_number] = (0,0,0)
+    pixels.show()
+    
+while True:
+    i=0
+    for i in range(30):
+        #pulse(i)
+        pixels[i] = (255,0,0)
+        pixels.show()
+        time.sleep(.01)
+        #pulse(i+3)
+        
+        
+
+while False:
+    for j in range(0,255,10):
+        pixels[1] = (j, 0, 0)
+        pixels.show()
+        time.sleep(.005)
+    for j in range(255,0,-10):
+        pixels[1] = (j, 0, 0)
+        pixels.show()
+        time.sleep(.005)
+
+while False:
+    i = 0
+    if cpx.button_a:
+        print("Button A pressed!")
+        program = "nothing"
+    if cpx.button_b:
+        print("Button B pressed!")
+        program = "chase"
+    if program == "chase":
+        pixels.fill(BLACK)
+        for i in range(9):
+            pixels[i]=YELLOW
+            pixels[i-1]=YELLOW
+            pixels.show()
+            time.sleep(.1)
+            pixels[i]=BLACK
+            pixels[i-1]=BLACK
+    if program == "nothing":
+        pixels.fill(BLACK)
+        for i in range(9):
+            pixels[i]=PURPLE
+            pixels[i-1]=PURPLE
+            pixels.show()
+            time.sleep(.1)
+            pixels[i]=BLACK
+            pixels[i-1]=BLACK
